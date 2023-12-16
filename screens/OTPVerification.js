@@ -76,7 +76,7 @@ const OTPVerification = () => {
               <View style={styles.verifyButtonContainer}>
                 <Text style={styles.notice}>Didn't receive yet? <Text style={styles.linkText}>Resend OTP</Text></Text>
                 <Pressable style={styles.verifyButton}>
-                  <Text style={styles.loginButtonText}>Login</Text>
+                  <Text style={styles.verifyButtonText}>Login</Text>
                 </Pressable>
               </View>
             </View>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   OTPContainer: {
     flexDirection: "row",
-    gap: 10,
+    gap: 8,
   },
   OTPDigit: {
     height: 50,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginVertical: 10,
   },
-  loginButtonText: {
+  verifyButtonText: {
     textAlign: "center",
     fontSize: 25,
     // fontFamily: 'LeagueGothic-Regular',
