@@ -79,9 +79,9 @@ const styles = StyleSheet.create({
   slogan: {
     textAlign: "center",
     color: "#fff",
-    // fontFamily: 'Mitr-Bold',
     fontSize: 50,
     marginBottom: 25,
+    // fontFamily: 'Mitr-Bold',
   },
   phoneNoContainer: {
     display: 'flex',

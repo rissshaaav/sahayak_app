@@ -1,11 +1,13 @@
 // import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, StatusBar } from "react-native";
 import PhoneNoReg from "./screens/PhoneNoReg";
+import OTPVerification from "./screens/OTPVerification";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <PhoneNoReg/>
+      {/* <PhoneNoReg/> */}
+      <OTPVerification/>
     </View>
   );
 }
