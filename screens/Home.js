@@ -24,6 +24,7 @@ const Home = () => {
           renderItem={({item})=>{return(
             <Complaint item={item}/>
           )}}
+          showsVerticalScrollIndicator={false}
         />
       </View>
       <FooterNav />
