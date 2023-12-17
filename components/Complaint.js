@@ -6,7 +6,7 @@ import DamagedRoad from "../assets/images/sampleDamageRoad.jpg";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-const Complaint = () => {
+const Complaint = ({item}) => {
   const complaintStatus = {
     active: {
       text: "active",
@@ -45,13 +45,13 @@ const Complaint = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.complaintID}>Complaint ID: BR0600001</Text>
-        <Text style={styles.complaintDate}>11/12/2023 12:42pm</Text>
+        <Text style={styles.complaintID}>Complaint ID: {item.complaintID}</Text>
+        <Text style={styles.complaintDate}>{item.complaintCreationDate} 12:42pm</Text>
       </View>
       <View style={styles.meta}>
         <View style={styles.location}>
           <Entypo name="location-pin" size={25} color="black" />
-          <Text style={{fontSize: 15}}>XYZ Village, Bihar</Text>
+          <Text style={{fontSize: 15}}>{item.complaintLocation}</Text>
         </View>
         <View style={styles.department}>
           <MaterialCommunityIcons
@@ -59,17 +59,17 @@ const Complaint = () => {
             size={24}
             color="black"
           />
-          <Text style={{fontSize: 15}}>Transport</Text>
+          <Text style={{fontSize: 15}}>{item.complaintDepartment}</Text>
         </View>
       </View>
       <View style={styles.descContainer}>
         <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur delectus esse similique fuga odit fugit soluta accusamus laudantium odio ullam, corrupti officia at dolorem. Nemo voluptatibus debitis error facere. Cupiditate!
+            {item.complaintDesc}
         </Text>
       </View>
       <View style={styles.supportDocContainer}>
         <AntDesign name="filetext1" size={25} color="black" />
-        <Text style={styles.fileName}>Road Survey Report 2023-24</Text>
+        <Text style={styles.fileName}>{item.complaintSupportDoc}</Text>
       </View>
       <View style={styles.imageContainer}>
         <Image source={DamagedRoad} style={styles.image} />

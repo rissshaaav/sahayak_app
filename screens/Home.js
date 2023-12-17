@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView, useWindowDimensions } from "react-native";
+import { StyleSheet, Text, View, StatusBar, ScrollView, useWindowDimensions, FlatList } from "react-native";
 import React from "react";
 import Header from "../components/Header";
 import FooterNav from "../components/FooterNav";
 import Complaint from "../components/Complaint";
+import MockComplaintData from '../MOCK_COMPLAINT_DATA.json';
 
 const Home = () => {
   const windowHeight = useWindowDimensions().height-100;
@@ -12,12 +13,18 @@ const Home = () => {
       <Header />
       <View style={[styles.main, { width: windowWidth, height: windowHeight }]}>
         <Text style={styles.pageHeading}>Community Complaints</Text>
-        <ScrollView style={[styles.scrollView, { width: windowWidth, height: windowHeight-50 }]}>
+        {/* <ScrollView style={[styles.scrollView, { width: windowWidth, height: windowHeight-50 }]}>
           <Complaint/>
           <Complaint/>
           <Complaint/>
           <Complaint/>
-        </ScrollView>
+        </ScrollView> */}
+        <FlatList 
+          data={MockComplaintData}
+          renderItem={({item})=>{return(
+            <Complaint item={item}/>
+          )}}
+        />
       </View>
       <FooterNav />
     </View>
