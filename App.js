@@ -4,6 +4,7 @@ import PhoneNoReg from "./screens/PhoneNoReg";
 import OTPVerification from "./screens/OTPVerification";
 import UserRegistration from "./screens/UserRegisteration";
 import Home from "./screens/Home";
+import NewComplaint from "./screens/NewComplaint";
 
 export default function App() {
   return (
@@ -11,7 +12,8 @@ export default function App() {
       {/* <PhoneNoReg/> */}
       {/* <OTPVerification/> */}
       {/* <UserRegistration/> */}
-      <Home/>
+      {/* <Home/> */}
+      <NewComplaint/>
     </View>
   );
 }

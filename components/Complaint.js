@@ -56,7 +56,7 @@ const Complaint = ({item}) => {
         <View style={styles.department}>
           <MaterialCommunityIcons
             name="office-building"
-            size={24}
+            size={25}
             color="black"
           />
           <Text style={{fontSize: 15}}>{item.complaintDepartment}</Text>
