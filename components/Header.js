@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import logoIcon from '../assets/logo/logo-icon.png'
+import logoIcon from '../assets/logo/logo-icon.png';
 
 const Header = () => {
   return (

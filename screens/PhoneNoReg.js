@@ -13,7 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import bgImage from "../assets/images/loginScreenBgImage.jpg";
 import logo from "../assets/logo/Sahayak-logos_white.png";
 
-const PhoneNoReg = () => {
+const PhoneNoReg = ({navigation}) => {
   const windowHeight = useWindowDimensions().height;
   const windowWidth = useWindowDimensions().width;
   return (
@@ -47,7 +47,7 @@ const PhoneNoReg = () => {
                   placeholder="Enter Your Number"
                 />
               </View>
-              <Pressable style={styles.loginButton}>
+              <Pressable style={styles.loginButton} onPress={()=>navigation.navigate("OTPVerification")}>
                 <Text style={styles.loginButtonText}>Login</Text>
               </Pressable>
               <Text style={styles.notice}>By continuing, you agree to our terms of service and privacy.</Text>

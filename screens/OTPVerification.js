@@ -13,7 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import bgImage from "../assets/images/loginScreenBgImage.jpg";
 import logo from "../assets/logo/Sahayak-logos_white.png";
 
-const OTPVerification = () => {
+const OTPVerification = ({navigation}) => {
   const windowHeight = useWindowDimensions().height;
   const windowWidth = useWindowDimensions().width;
   return (
@@ -75,7 +75,7 @@ const OTPVerification = () => {
               
               <View style={styles.verifyButtonContainer}>
                 <Text style={styles.notice}>Didn't receive yet? <Text style={styles.linkText}>Resend OTP</Text></Text>
-                <Pressable style={styles.verifyButton}>
+                <Pressable style={styles.verifyButton} onPress={()=>navigation.navigate("UserRegistration")}>
                   <Text style={styles.verifyButtonText}>Login</Text>
                 </Pressable>
               </View>

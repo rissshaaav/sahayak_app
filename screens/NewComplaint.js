@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import React from "react";
 import Header from "../components/Header";
-import FooterNav from "../components/FooterNav";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -59,7 +58,7 @@ const NewComplaint = () => {
           </View>
         </View>
       </View>
-      <FooterNav />
+      {/* <FooterNav /> */}
     </View>
   );
 };

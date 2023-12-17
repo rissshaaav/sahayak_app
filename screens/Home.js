@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import React from "react";
 import Header from "../components/Header";
-import FooterNav from "../components/FooterNav";
 import Complaint from "../components/Complaint";
 import MockComplaintData from "../MOCK_COMPLAINT_DATA.json";
 
@@ -35,7 +34,7 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
         />
       </View>
-      <FooterNav />
+      {/* <FooterNav /> */}
     </View>
   );
 };
