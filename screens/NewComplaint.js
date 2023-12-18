@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,7 +9,6 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import React from "react";
 import Header from "../components/Header";
 import Complaint from "../components/Complaint";
 import { Entypo } from "@expo/vector-icons";
@@ -19,13 +19,24 @@ import { Ionicons } from "@expo/vector-icons";
 const NewComplaint = () => {
   const windowHeight = useWindowDimensions().height - 100;
   const windowWidth = useWindowDimensions().width - 40;
-  const complaint = {
+  const [complaint, setComplaint] = useState({
     complaintID: "BR0600001",
     complaintCreationDate: "dd/mm/yyyy",
-    complaintLocation: "XYZ Village",
-    complaintDepartment: "department",
-    complaintDesc: "your complaint description will appear here",
+    complaintLocation: "",
+    complaintDepartment: "",
+    complaintDesc: "",
     complaintSupportDoc: "Attached Support Doc",
+  });
+  // const complaint = {
+  //   complaintID: "BR0600001",
+  //   complaintCreationDate: "dd/mm/yyyy",
+  //   complaintLocation: "XYZ Village",
+  //   complaintDepartment: "department",
+  //   complaintDesc: "your complaint description will appear here",
+  //   complaintSupportDoc: "Attached Support Doc",
+  // };
+  const handleInputChange = (field, value) => {
+    setComplaint({ ...complaint, [field]: value });
   };
   return (
     <View style={styles.container}>
@@ -40,11 +51,20 @@ const NewComplaint = () => {
             multiline
             placeholder="Describe you complaint here"
             style={styles.desc}
+            value={complaint.complaintDesc}
+            onChangeText={(text) => handleInputChange("complaintDesc", text)}
           />
           <View style={styles.meta}>
             <View style={styles.locationContainer}>
               <Entypo name="location-pin" size={25} color="black" />
-              <TextInput placeholder="location" style={styles.location} />
+              <TextInput
+                placeholder="location"
+                style={styles.location}
+                value={complaint.complaintLocation}
+                onChangeText={(text) =>
+                  handleInputChange("complaintLocation", text)
+                }
+              />
             </View>
             <View style={styles.departmentContainer}>
               <MaterialCommunityIcons
@@ -52,7 +72,14 @@ const NewComplaint = () => {
                 size={25}
                 color="black"
               />
-              <TextInput placeholder="department" style={styles.department} />
+              <TextInput
+                placeholder="department"
+                style={styles.department}
+                value={complaint.complaintDepartment}
+                onChangeText={(text) =>
+                  handleInputChange("complaintDepartment", text)
+                }
+              />
             </View>
           </View>
           <View style={styles.iconsAndButtonContainer}>
@@ -71,7 +98,8 @@ const NewComplaint = () => {
         </View>
         <Text style={styles.pageHeading}>Complaint Preview</Text>
         <Text style={styles.notice}>
-          Note down the complaint ID from below, you won't be able to retrieve it again.
+          Note down the complaint ID from below, you won't be able to retrieve
+          it again.
         </Text>
         <Complaint item={complaint} />
       </ScrollView>
