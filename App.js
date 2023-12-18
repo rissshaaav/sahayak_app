@@ -1,5 +1,4 @@
-// import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import PhoneNoReg from "./screens/PhoneNoReg";
 import OTPVerification from "./screens/OTPVerification";
 import UserRegistration from "./screens/UserRegisteration";

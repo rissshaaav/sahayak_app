@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import React from "react";
 import Header from "../components/Header";
+import Complaint from "../components/Complaint";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -18,12 +19,23 @@ import { Ionicons } from "@expo/vector-icons";
 const NewComplaint = () => {
   const windowHeight = useWindowDimensions().height - 100;
   const windowWidth = useWindowDimensions().width - 40;
+  const complaint = {
+    complaintID: "BR0600001",
+    complaintCreationDate: "dd/mm/yyyy",
+    complaintLocation: "XYZ Village",
+    complaintDepartment: "department",
+    complaintDesc: "your complaint description will appear here",
+    complaintSupportDoc: "Attached Support Doc",
+  };
   return (
     <View style={styles.container}>
       <Header />
-      <View style={[styles.main, { width: windowWidth, height: windowHeight }]}>
+      <ScrollView
+        style={[styles.main, { width: windowWidth, height: windowHeight }]}
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={styles.pageHeading}>Create New Complaint</Text>
-        <View>
+        <View style={styles.newComplaintBox}>
           <TextInput
             multiline
             placeholder="Describe you complaint here"
@@ -57,8 +69,12 @@ const NewComplaint = () => {
             </Pressable>
           </View>
         </View>
-      </View>
-      {/* <FooterNav /> */}
+        <Text style={styles.pageHeading}>Complaint Preview</Text>
+        <Text style={styles.notice}>
+          Note down the complaint ID from below, you won't be able to retrieve it again.
+        </Text>
+        <Complaint item={complaint} />
+      </ScrollView>
     </View>
   );
 };
@@ -73,8 +89,10 @@ const styles = StyleSheet.create({
   main: {},
   pageHeading: {
     fontSize: 25,
-    height: 50,
     // fontFamily: 'Mitr-Regular',
+  },
+  newComplaintBox: {
+    marginBottom: 10,
   },
   desc: {
     borderWidth: 1,
@@ -104,12 +122,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flex: 1,
-    gap: 5,
+    gap: 4,
     borderWidth: 1,
     borderRadius: 5,
     height: 50,
   },
-  iconsAndButtonContainer:{
+  iconsAndButtonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     gap: 10,
@@ -139,5 +157,11 @@ const styles = StyleSheet.create({
   fileComplaintButtonText: {
     textAlign: "center",
     // fontFamily: 'LeagueGothic-Regular',
+  },
+  notice: {
+    backgroundColor: "#fe8181",
+    borderRadius: 5,
+    padding: 5,
+    marginBottom: 10,
   },
 });

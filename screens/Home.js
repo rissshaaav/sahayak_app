@@ -34,7 +34,6 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
         />
       </View>
-      {/* <FooterNav /> */}
     </View>
   );
 };
