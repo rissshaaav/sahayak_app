@@ -15,6 +15,8 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 
 const NewComplaint = () => {
   const windowHeight = useWindowDimensions().height - 100;
@@ -37,6 +39,36 @@ const NewComplaint = () => {
   // };
   const handleInputChange = (field, value) => {
     setComplaint({ ...complaint, [field]: value });
+  };
+  const pickPdf = async () => {
+    try {
+      const pdf = await DocumentPicker.getDocumentAsync({
+        type: "application/pdf",
+      });
+      if (!pdf.canceled) {
+        setSelectedPdf(pdf);
+        console.log(pdf);
+      }
+      //   console.log(selectedPdf);
+    } catch (error) {
+      console.error("Error picking PDF:", error);
+    }
+  };
+  const pickImage = async () => {
+    try {
+      const image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!image.canceled) {
+        setSelectedImage(image);
+      }
+    } catch (error) {
+      console.error("Error picking image:", error);
+    }
   };
   return (
     <View style={styles.container}>
@@ -84,12 +116,12 @@ const NewComplaint = () => {
           </View>
           <View style={styles.iconsAndButtonContainer}>
             <View style={styles.mediaIcons}>
-              <View style={styles.iconContainer}>
+              <Pressable style={styles.iconContainer} onPress={pickImage}>
                 <Ionicons name="images-outline" size={25} color="black" />
-              </View>
-              <View style={styles.iconContainer}>
+              </Pressable>
+              <Pressable style={styles.iconContainer} onPress={pickPdf}>
                 <AntDesign name="filetext1" size={25} color="black" />
-              </View>
+              </Pressable>
             </View>
             <Pressable style={styles.fileComplaintButton}>
               <Text style={styles.fileComplaintButtonText}>File Complaint</Text>

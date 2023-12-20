@@ -72,7 +72,7 @@ const Complaint = ({item}) => {
         <Text style={styles.fileName}>{item.complaintSupportDoc}</Text>
       </View>
       <View style={styles.imageContainer}>
-        <Image source={DamagedRoad} style={styles.image} />
+        <Image source={item.complaintImage ? item.complaintImage : DamagedRoad} style={styles.image} />
       </View>
       <View style={styles.tools}>
         <View style={styles.meTooContainer}>
