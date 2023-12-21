@@ -1,12 +1,19 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import DamagedRoad from "../assets/images/sampleDamageRoad.jpg";
+import defaultComplaintImage from "../assets/images/defaultComplaintImage.jpg";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-const Complaint = ({item}) => {
+const Complaint = ({ item }) => {
+  const [meTooCount, setMeTooCount] = useState(0);
+  const [status, setStatus] = useState("active");
+  useEffect(() => {
+    item.complaintMeTooCount && setMeTooCount(item.complaintMeTooCount);
+    item.complaintStatus && setStatus(item.complaintStatus);
+  }, [item.complaintMeTooCount, item.complaintStatus]);
+
   const complaintStatus = {
     active: {
       text: "active",
@@ -42,16 +49,21 @@ const Complaint = ({item}) => {
       ),
     },
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.complaintID}>Complaint ID: {item.complaintID}</Text>
-        <Text style={styles.complaintDate}>{item.complaintCreationDate} 12:42pm</Text>
+        <Text style={styles.complaintDate}>
+          {item.complaintCreationDate}
+        </Text>
       </View>
       <View style={styles.meta}>
         <View style={styles.location}>
           <Entypo name="location-pin" size={25} color="black" />
-          <Text style={{fontSize: 15}}>{item.complaintLocation}</Text>
+          <Text style={{ fontSize: 15 }}>
+            {item.complaintLocation ? item.complaintLocation : "XYZ Village"}
+          </Text>
         </View>
         <View style={styles.department}>
           <MaterialCommunityIcons
@@ -59,20 +71,33 @@ const Complaint = ({item}) => {
             size={25}
             color="black"
           />
-          <Text style={{fontSize: 15}}>{item.complaintDepartment}</Text>
+          <Text style={{ fontSize: 15 }}>
+            {item.complaintDepartment ? item.complaintDepartment : "Department"}
+          </Text>
         </View>
       </View>
       <View style={styles.descContainer}>
         <Text>
-            {item.complaintDesc}
+          {item.complaintDesc
+            ? item.complaintDesc
+            : "Your complaint description will appear here"}
         </Text>
       </View>
       <View style={styles.supportDocContainer}>
         <AntDesign name="filetext1" size={25} color="black" />
-        <Text style={styles.fileName}>{item.complaintSupportDoc}</Text>
+        <Text style={styles.fileName}>
+          {item.complaintSupportDoc
+            ? item.complaintSupportDoc
+            : "Attached Support Document"}
+        </Text>
       </View>
       <View style={styles.imageContainer}>
-        <Image source={item.complaintImage ? item.complaintImage : DamagedRoad} style={styles.image} />
+        <Image
+          source={
+            item.complaintImage ? item.complaintImage : defaultComplaintImage
+          }
+          style={styles.image}
+        />
       </View>
       <View style={styles.tools}>
         <View style={styles.meTooContainer}>
@@ -81,22 +106,48 @@ const Complaint = ({item}) => {
             <Ionicons name="hand-right-outline" size={30} color="black" />
           </View>
           <View>
-            <Text style={styles.meTooCount}>250</Text>
+            <Text style={styles.meTooCount}>{meTooCount}</Text>
           </View>
         </View>
         <View style={styles.statusContainer}>
           <Text style={styles.statusLabel}>status</Text>
-          <View style={styles.statusButton}>
-            {complaintStatus.inProgress.icon}
-            <Text
-              style={[
-                styles.statusText,
-                { color: `${complaintStatus.inProgress.color}` },
-              ]}
-            >
-              {complaintStatus.inProgress.text}
-            </Text>
-          </View>
+          {status === "active" ? (
+            <View style={styles.statusButton}>
+              {complaintStatus.active.icon}
+              <Text
+                style={[
+                  styles.statusText,
+                  { color: complaintStatus.active.color },
+                ]}
+              >
+                {complaintStatus.active.text}
+              </Text>
+            </View>
+          ) : status === "in-progress" ? (
+            <View style={styles.statusButton}>
+              {complaintStatus.inProgress.icon}
+              <Text
+                style={[
+                  styles.statusText,
+                  { color: complaintStatus.inProgress.color },
+                ]}
+              >
+                {complaintStatus.inProgress.text}
+              </Text>
+            </View>
+          ) : status === "resolved" ? (
+            <View style={styles.statusButton}>
+              {complaintStatus.resolved.icon}
+              <Text
+                style={[
+                  styles.statusText,
+                  { color: complaintStatus.resolved.color },
+                ]}
+              >
+                {complaintStatus.resolved.text}
+              </Text>
+            </View>
+          ) : null}
         </View>
       </View>
     </View>
@@ -114,7 +165,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     height: 25,
     marginBottom: 5,
   },
@@ -123,30 +174,30 @@ const styles = StyleSheet.create({
   },
   complaintDate: {
     fontSize: 10,
-    color: '#777777',
+    color: "#777777",
   },
   meta: {
     marginBottom: 5,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   location: {
     flexDirection: "row",
     alignItems: "center",
-    width: '45%',
+    width: "45%",
   },
   department: {
     flexDirection: "row",
     alignItems: "center",
-    width: '45%',
+    width: "45%",
   },
   descContainer: {
     marginBottom: 5,
   },
   supportDocContainer: {
     borderWidth: 1,
-    height: 30,
+    minHeight: 30,
     borderRadius: 5,
     flexDirection: "row",
     alignItems: "center",

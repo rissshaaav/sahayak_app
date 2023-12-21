@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -19,24 +19,32 @@ import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
 
 const NewComplaint = () => {
-  const windowHeight = useWindowDimensions().height - 100;
-  const windowWidth = useWindowDimensions().width - 40;
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedPdf, setSelectedPdf] = useState(null);
   const [complaint, setComplaint] = useState({
     complaintID: "BR0600001",
     complaintCreationDate: "dd/mm/yyyy",
     complaintLocation: "",
     complaintDepartment: "",
     complaintDesc: "",
-    complaintSupportDoc: "Attached Support Doc",
+    complaintSupportDoc: null,
+    complaintImage: null,
   });
-  // const complaint = {
-  //   complaintID: "BR0600001",
-  //   complaintCreationDate: "dd/mm/yyyy",
-  //   complaintLocation: "XYZ Village",
-  //   complaintDepartment: "department",
-  //   complaintDesc: "your complaint description will appear here",
-  //   complaintSupportDoc: "Attached Support Doc",
-  // };
+  const windowHeight = useWindowDimensions().height - 100;
+  const windowWidth = useWindowDimensions().width - 40;
+  const getCurrentDateTime = ()=> {
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const year = currentDate.getFullYear();
+    let hours = currentDate.getHours();
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const amOrPm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12 || 12;
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedDateTime = `${day}/${month}/${year} ${formattedHours}:${minutes} ${amOrPm}`;
+    return formattedDateTime;
+  };
   const handleInputChange = (field, value) => {
     setComplaint({ ...complaint, [field]: value });
   };
@@ -46,8 +54,8 @@ const NewComplaint = () => {
         type: "application/pdf",
       });
       if (!pdf.canceled) {
-        setSelectedPdf(pdf);
-        console.log(pdf);
+        setSelectedPdf(pdf); 
+        handleInputChange("complaintSupportDoc", `${pdf.assets[0].name}`);
       }
       //   console.log(selectedPdf);
     } catch (error) {
@@ -62,9 +70,9 @@ const NewComplaint = () => {
         aspect: [4, 3],
         quality: 1,
       });
-
       if (!image.canceled) {
         setSelectedImage(image);
+        handleInputChange("complaintImage", { uri: image.assets[0].uri });
       }
     } catch (error) {
       console.error("Error picking image:", error);
@@ -123,7 +131,7 @@ const NewComplaint = () => {
                 <AntDesign name="filetext1" size={25} color="black" />
               </Pressable>
             </View>
-            <Pressable style={styles.fileComplaintButton}>
+            <Pressable style={styles.fileComplaintButton} onPress={()=>handleInputChange("complaintCreationDate",getCurrentDateTime())}>
               <Text style={styles.fileComplaintButtonText}>File Complaint</Text>
             </Pressable>
           </View>
